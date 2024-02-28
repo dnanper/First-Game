@@ -4,6 +4,7 @@
 #include "../physics/Transform.h"
 #include "../Character/Phanora.h"
 #include "../inputs/Input.h"
+#include "../timer/Timer.h"
 
 Engine* Engine::s_Instance = nullptr;
 Phanora* player = nullptr;
@@ -16,7 +17,9 @@ bool Engine::Init()
         return false;
     }
 
-    m_Window = SDL_CreateWindow("MAIN GAME", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    SDL_WindowFlags window_flags = (SDL_WindowFlags) (SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+
+    m_Window = SDL_CreateWindow("MAIN GAME", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, window_flags);
     if ( m_Window == nullptr )
     {
         SDL_Log("Failed to create Window: %s", SDL_GetError());
@@ -40,7 +43,8 @@ bool Engine::Init()
 
 void Engine::Update()
 {
-    player->Update(0);  
+    float dt = Timer::GetInstance()->GetDeltaTime();
+    player->Update(dt);  
 }
 
 void Engine::Render()

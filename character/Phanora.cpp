@@ -44,7 +44,8 @@ void Phanora::Update(float dt)
         m_Animation->SetProps("player_move", 1, 6, 120, SDL_FLIP_VERTICAL);
     }
 
-    m_RigidBody->Update(0.4);
+    // SDL_Log("%f", dt);
+    m_RigidBody->Update(dt);
     m_Transform->TranslateX(m_RigidBody->Position().X);
     m_Transform->TranslateY(m_RigidBody->Position().Y);
     m_Animation->Update();
