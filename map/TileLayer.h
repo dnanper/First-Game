@@ -7,10 +7,10 @@
 
 struct Tileset
 {
-    int First, LastID;
+    int FirstID, LastID;
     int RowCount, ColCount;
     int TileCount, TileSize;
-    std::string Name, Sourec;
+    std::string Name, Source;
 };
 
 using TilesetList = std::vector<Tileset>;
@@ -19,10 +19,11 @@ using TileMap = std::vector<std::vector<int> >;
 class TileLayer : public Layer
 {
     public:
-        TileLayer(int tilesize, int rowcount, int colcount, TileMap tilemap, TilesetList tilesets);
+        TileLayer(int tilesize, int colcount, int rowcount, TileMap tilemap, TilesetList tilesets);
         virtual void Render();
         virtual void Update();
         inline TileMap GetTilemap() { return m_Tilemap; }
+        inline GetTileSize() { return m_TileSize; }
 
     private:
         int m_TileSize;
