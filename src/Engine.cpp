@@ -83,7 +83,7 @@ void Engine::Render()
 {
     SDL_SetRenderDrawColor( m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
-    TextureManager::GetInstance()->Draw("bg", 0, 0, 1920, 1080, 0.5, 0);
+    TextureManager::GetInstance()->Draw("bg", 0, 0, 3600, 3600, 1, 0);
     m_LevelMap->Render();
 
     for (unsigned int i = 0; i != m_GameObjects.size(); i++)

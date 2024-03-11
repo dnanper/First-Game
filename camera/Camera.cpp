@@ -9,25 +9,25 @@ void Camera::Update(float dt)
         m_ViewBox.x = m_Target->X - SCREEN_WIDTH/2;
         m_ViewBox.y = m_Target->Y - SCREEN_HEIGHT/2;
 // neu khong sinh map vo han
-        // if (m_ViewBox.x < 0)
-        // {
-        //     m_ViewBox.x = 0;
-        // }
+        if (m_ViewBox.x < 0)
+        {
+            m_ViewBox.x = 0;
+        }
 
-        // if (m_ViewBox.y < 0)
-        // {
-        //     m_ViewBox.y = 0;
-        // }        
+        if (m_ViewBox.y < 0)
+        {
+            m_ViewBox.y = 0;
+        }        
 
-        // if ( m_ViewBox.x > ( 2*SCREEN_WIDTH - m_ViewBox.w ) )
-        // {
-        //     m_ViewBox.x = ( 2*SCREEN_WIDTH - m_ViewBox.w);
-        // }
+        if ( m_ViewBox.x > ( 4*SCREEN_WIDTH - m_ViewBox.w ) )
+        {
+            m_ViewBox.x = ( 4*SCREEN_WIDTH - m_ViewBox.w);
+        }
 
-        // if ( m_ViewBox.y > ( 2*SCREEN_HEIGHT - m_ViewBox.h ) )
-        // {
-        //     m_ViewBox.y = ( 2*SCREEN_HEIGHT - m_ViewBox.h);
-        // }
+        if ( m_ViewBox.y > ( 4*SCREEN_HEIGHT - m_ViewBox.h ) )
+        {
+            m_ViewBox.y = ( 4*SCREEN_HEIGHT - m_ViewBox.h);
+        }
 //
         m_Position = Vector2D(m_ViewBox.x, m_ViewBox.y);
 

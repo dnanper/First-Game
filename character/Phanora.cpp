@@ -91,7 +91,7 @@ void Phanora::Update(float dt)
     m_Origin->X = m_Transform->X + m_Width/2;
     m_Origin->Y = m_Transform->Y + m_Height/2;
     //mouse motion
-    angle = -90 + atan2( 450 - Input::GetInstance()->GetMouseY(), 450 - Input::GetInstance()->GetMouseX() ) * ( 180/PI);
+    angle = -90 + atan2( /*m_Transform->Y + m_Height/2*/450 - Input::GetInstance()->GetMouseY(), /*m_Transform->X + m_Width/2*/450 - Input::GetInstance()->GetMouseX() ) * ( 180/PI);
     if ( angle < 0 ) angle = 360 + angle;
 
     // bullet
