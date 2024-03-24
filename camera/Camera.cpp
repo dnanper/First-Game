@@ -19,14 +19,14 @@ void Camera::Update(float dt)
             m_ViewBox.y = 0;
         }        
 
-        if ( m_ViewBox.x > ( 4*SCREEN_WIDTH - m_ViewBox.w ) )
+        if ( m_ViewBox.x > ( 3*SCREEN_WIDTH - m_ViewBox.w ) )
         {
-            m_ViewBox.x = ( 4*SCREEN_WIDTH - m_ViewBox.w);
+            m_ViewBox.x = ( 3*SCREEN_WIDTH - m_ViewBox.w);
         }
 
-        if ( m_ViewBox.y > ( 4*SCREEN_HEIGHT - m_ViewBox.h ) )
+        if ( m_ViewBox.y > ( 3*SCREEN_HEIGHT - m_ViewBox.h ) )
         {
-            m_ViewBox.y = ( 4*SCREEN_HEIGHT - m_ViewBox.h);
+            m_ViewBox.y = ( 3*SCREEN_HEIGHT - m_ViewBox.h);
         }
 //
         m_Position = Vector2D(m_ViewBox.x, m_ViewBox.y);

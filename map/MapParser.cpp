@@ -4,7 +4,7 @@ MapParser* MapParser::s_Instance = nullptr;
 
 bool MapParser::Load()
 {
-    if ( !Parse("BossRoom", "image/maps/map2.tmx"))
+    if ( !Parse("BossRoom", "image/maps/map_test2.tmx"))
         return false;
     return true;
 }

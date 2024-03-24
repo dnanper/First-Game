@@ -1,6 +1,7 @@
 #include "Phanora.h"
 #include "../graphics/TextureManager.h"
 #include "../inc/SDL.h"
+#include "../inc/SDL_image.h"
 #include "../inputs/Input.h"
 #include "../src/Engine.h"
 #include "../camera/Camera.h"
@@ -25,6 +26,19 @@ Phanora::Phanora(Properties* props): Character(props)
 void Phanora::Draw()
 {
     m_Animation->Draw(m_Transform->X, m_Transform->Y, m_Width, m_Height, angle);
+    Vector2D cam = Camera::GetInstance()->GetPosition();
+    SDL_Rect hBar = { (int)m_Transform->X - (int)cam.X, (int)m_Transform->Y - (int)cam.Y - 10, 60- (30-health)*2, 10 };
+    SDL_Rect vBar = { (int)m_Transform->X - (int)cam.X, (int)m_Transform->Y - (int)cam.Y - 10, 60, 10 };
+    SDL_Rect outline = { (int)m_Transform->X - (int)cam.X, (int)m_Transform->Y - (int)cam.Y - 10, 60, 10 };
+    // phong nen
+    SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0x00, 0x00, 0xFF, 0xFF);
+    SDL_RenderFillRect(Engine::GetInstance()->GetRenderer(), &vBar);
+    // mau
+    SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0xFF, 0x00, 0x00, 0xFF);
+    SDL_RenderFillRect(Engine::GetInstance()->GetRenderer(), &hBar);
+    // vien
+    SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 0x00, 0xFF, 0x00, 0xFF);
+	SDL_RenderDrawRect(Engine::GetInstance()->GetRenderer(), &outline);
     // debugger
     /*
     Vector2D cam = Camera::GetInstance()->GetPosition();
@@ -91,7 +105,14 @@ void Phanora::Update(float dt)
     m_Origin->X = m_Transform->X + m_Width/2;
     m_Origin->Y = m_Transform->Y + m_Height/2;
     //mouse motion
-    angle = -90 + atan2( /*m_Transform->Y + m_Height/2*/450 - Input::GetInstance()->GetMouseY(), /*m_Transform->X + m_Width/2*/450 - Input::GetInstance()->GetMouseX() ) * ( 180/PI);
+    m_x = 450;
+    m_y = 450;
+    if ( m_Origin->X <= 450 ) m_x = m_Origin->X;
+    if ( m_Origin->X >= 2250 ) m_x = m_Origin->X - 2250 + 450;
+    if ( m_Origin->Y <= 450 ) m_y = m_Origin->Y;
+    if ( m_Origin->Y >= 2250 ) m_y = m_Origin->Y - 2250 + 450;
+    // debug: std::cout << ": " << m_x << " " << m_y << std::endl;
+    angle = -90 + atan2( m_y/*450*/ - Input::GetInstance()->GetMouseY(), m_x/*450*/ - Input::GetInstance()->GetMouseX()) * ( 180/PI);
     if ( angle < 0 ) angle = 360 + angle;
 
     // bullet
@@ -107,14 +128,17 @@ void Phanora::Update(float dt)
     CurrentTime=SDL_GetTicks();
     if ( canspawnbullet && ( CurrentTime>LastTime+200) )
     {
-        std::cout << "create new bullet\n";
-        i++;
+        //std::cout << "create new bullet\n";
+        //i++;
         Bullet* p_bullet=new Bullet(new Properties("bullet", 450, 450, 10 ,30));
         p_bullet->p_angle = angle;
         p_bullet->Set_xpos(m_Transform->X + m_Width/2);
         p_bullet->Set_ypos(m_Transform->Y + m_Height/2);
-        Engine::GetInstance()->p_bullet_list.push_back(p_bullet);
+        p_bullet->setType("bullet");
+        Engine::GetInstance()->p_bullet_list.push_back({p_bullet, "bullet"});
         LastTime = CurrentTime;
+
+        Sound::GetInstance()->PlayEffect("shoot");
         // for (auto x:  Engine::GetInstance()->p_bullet_list)
         // {
         //     std::cout << i << std::endl;

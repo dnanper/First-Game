@@ -1,7 +1,7 @@
 #include "TileLayer.h"
 #include "../graphics/TextureManager.h"
 
-TileLayer::TileLayer(int tilesize, int colcount, int rowcount, TileMap tilemap, TilesetList tilesets) : 
+TileLayer::TileLayer(int tilesize, int rowcount, int colcount, TileMap tilemap, TilesetList tilesets) : 
 m_TileSize (tilesize), m_RowCount(rowcount), m_ColCount(colcount), m_Tilemap(tilemap), m_Tilesets(tilesets)
 {
     for (unsigned int i = 0; i < m_Tilesets.size(); i++ )

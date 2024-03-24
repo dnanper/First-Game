@@ -38,7 +38,8 @@ void TextureManager::DrawObject(std::string id, int x, int y, int width, int hei
 {
     SDL_Rect srcRect = {0, 0, width, height};
     Vector2D cam = Camera::GetInstance()->GetPosition()*scrollRatio;
-    //std::cout << "root: " << x << " " << y << std::endl;
+    // std::cout << "root: " << x << " " << y << std::endl;
+    // std::cout << width << " " << height << std::endl;
     SDL_Rect dstRect = {x - (int)cam.X, y - (int)cam.Y, width, height};
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[id], &srcRect, &dstRect, angle, nullptr, flip /*lat*/);
 }
@@ -61,13 +62,14 @@ void TextureManager::DrawFrame(std::string id, int x, int y, int width, int heig
     std::cout << "frame: " << frame << std::endl;
     std::cout << "m_TextureMap[id]: " << m_TextureMap[id] << std::endl;
     */
+    //std::cout << "player: " << x << " " << y << std::endl;
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[id], &srcRect, &dstRect, angle, nullptr, flip /*lat*/);
 }
 
 // Use for Map
 void TextureManager::DrawTile(std::string tilesetID, int tileSize, int x, int y, int row, int frame, SDL_RendererFlip flip)
 {
-    SDL_Rect srcRect = {tileSize* frame, tileSize*(row-1), tileSize, tileSize};
+    SDL_Rect srcRect = {tileSize* frame, tileSize*(row), tileSize, tileSize};
 
     Vector2D cam = Camera::GetInstance()->GetPosition();
     SDL_Rect dstRect = {x-(int)cam.X, y-(int)cam.Y, tileSize, tileSize};
